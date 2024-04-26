@@ -12,7 +12,8 @@ export const Pokedex = (props) => {
 
 
   console.log( props.pokemon )
-  const { pokemonData, isLoading} = useFetchPokedex( props.pokemon )
+  // const { pokemonData, isLoading} = useFetchPokedex( props.pokemon )
+  const { pokemonData, isLoading} = useFetchPokemonDataById( [props.pokemon] )
   console.log( pokemonData)
   const navigate = useNavigate()
 
