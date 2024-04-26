@@ -3,13 +3,13 @@ import { getPokemonData } from "../helpers/getPokemonData";
 
 export const useFetchPokedex = (id) => {
 
-    const [pokemonData2, setPokemonData2] = useState({});
+    const [pokemonData, setPokemonData] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     
     const fetchData = async () => {
         try {
             const data = await getPokemonData(id);
-            setPokemonData2(data);
+            setPokemonData(data);
             setIsLoading(false);
         } catch (error) {
             console.error("Error fetching Pokemon data:", error);
@@ -21,10 +21,10 @@ export const useFetchPokedex = (id) => {
 
         fetchData();
         console.log('useEffect from useFetchPokedex')
-    }, [id]);
+    }, []);
 
     return {
-        pokemonData2,
+        pokemonData,
         isLoading,
     };
 };

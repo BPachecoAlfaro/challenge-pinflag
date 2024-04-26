@@ -1,11 +1,13 @@
 
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { colorByType } from "../helpers/colorByType"
 import { useNavigate } from 'react-router-dom'
+import { SelectedPokemonContext } from '../context/SelectedPokemonContext'
 
 export const PokemonCard = (props) => {
 
-  // const [selectedPokemon, setSelectedPokemon] = useState()
+  const { setSelectedPokemon } = useContext( SelectedPokemonContext )
+
   const navigate = useNavigate()
 
   let types = []
@@ -17,7 +19,8 @@ export const PokemonCard = (props) => {
 
   const handleClickOnPokemon = () => {
     console.log(props.id);
-    navigate(`/pokedex/${props.id}`);
+    setSelectedPokemon( props.id )
+    navigate("/pokedex")
   }
 
 
