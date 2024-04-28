@@ -1,21 +1,33 @@
 import { SelectedPokemonContext } from "../context/SelectedPokemonContext";
 import { getPokemonData } from "../helpers/getPokemonData";
 import { useState, useEffect, useContext } from 'react'
-import { useFetchPokemonDataById } from "../hooks/useFetchPokemonDataById";
-import { useFetchPokedex } from "../hooks/useFetchPokedex";
 import { colorByType } from "../helpers/colorByType";
 import { useNavigate } from "react-router-dom";
 import { Loading } from './Loading'
 
 
-export const Pokedex = (props) => {
-
-
-  console.log( props.pokemon )
-  // const { pokemonData, isLoading} = useFetchPokedex( props.pokemon )
-  const { pokemonData, isLoading} = useFetchPokemonDataById( [props.pokemon] )
-  console.log( pokemonData)
+export const Pokedex = () => {
+  const { selectedPokemon } = useContext( SelectedPokemonContext )
   const navigate = useNavigate()
+
+  const [pokemonData, setPokemonData] = useState([]);
+  const [isLoading, setLoading] = useState(true)
+
+  const fetchData = async (id) => {
+      const data = await getPokemonData(id);
+      setPokemonData(data);
+      setLoading(false)
+  };
+
+useEffect(() => {
+    fetchData(selectedPokemon)
+    console.log('useEffect from Pokedex')
+}, []);
+
+  // // const { pokemonData, isLoading} = useFetchPokedex( props.pokemon )
+  // const { pokemonData, isLoading} = useFetchPokemonDataById( [props.pokemon] )
+  // console.log( pokemonData)
+  // const navigate = useNavigate()
 
   const handleClickGridPokemon = () => {
     navigate("/pokemongrid")

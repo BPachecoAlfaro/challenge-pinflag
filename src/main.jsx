@@ -7,8 +7,8 @@ import { PokedexApp } from './PokedexApp';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode>
+  // </React.StrictMode>
     <BrowserRouter>
       <PokedexApp />
     </BrowserRouter>
-  // </React.StrictMode>
 );

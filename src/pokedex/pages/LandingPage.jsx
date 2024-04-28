@@ -4,8 +4,16 @@ import { useNavigate } from 'react-router-dom';
 
 export const LandingPage = () => {
   const navigate = useNavigate();
-
   const toPokemongrid = () => navigate("pokemongrid")
+
+  const initializeLocalStorage = () => {
+    const existingData = localStorage.getItem('pokemons');
+    if (!existingData) {
+      localStorage.setItem('pokemons', JSON.stringify([]));
+    }
+  };
+
+  initializeLocalStorage()
 
   return (
     <>
