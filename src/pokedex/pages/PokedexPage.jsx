@@ -1,5 +1,4 @@
-
-import { Pokedex } from '../components/Pokedex'
+import {Pokedex} from '../components/pokedex'
 
 
 export const PokedexPage = () => {

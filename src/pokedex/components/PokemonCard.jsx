@@ -20,7 +20,6 @@ export const PokemonCard = (props) => {
   })();
 
   const handleClickOnPokemon = () => {
-    console.log(props.id);
     setSelectedPokemon( props.id )
     navigate("/pokedex")
   }

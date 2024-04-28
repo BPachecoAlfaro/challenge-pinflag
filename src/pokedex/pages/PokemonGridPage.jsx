@@ -37,7 +37,6 @@ export const PokemonGridPage = () => {
 
   useEffect(() => {
     fetchData()
-    console.log('useEffect from PokemonGridPage')
   }, []);
 
   return (

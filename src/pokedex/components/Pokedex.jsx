@@ -7,6 +7,7 @@ import { Loading } from './Loading'
 
 
 export const Pokedex = () => {
+
   const { selectedPokemon } = useContext( SelectedPokemonContext )
   const navigate = useNavigate()
 
@@ -19,15 +20,10 @@ export const Pokedex = () => {
       setLoading(false)
   };
 
-useEffect(() => {
+  useEffect(() => {
     fetchData(selectedPokemon)
-    console.log('useEffect from Pokedex')
-}, []);
+  }, []);
 
-  // // const { pokemonData, isLoading} = useFetchPokedex( props.pokemon )
-  // const { pokemonData, isLoading} = useFetchPokemonDataById( [props.pokemon] )
-  // console.log( pokemonData)
-  // const navigate = useNavigate()
 
   const handleClickGridPokemon = () => {
     navigate("/pokemongrid")
@@ -38,9 +34,8 @@ useEffect(() => {
     <>
     {
       isLoading ? <Loading/> : (
-      <div className='container bg-slate-600'>
-      <div className='grid'>
-        <img className='' src={pokemonData.sprites.other.home.front_default}/>
+      <div className='w-screen bg-slate-100 mx-auto px-4 h-screen grid place-items-center'>
+        <img className='drop-shadow-xl' src={pokemonData.sprites.other.home.front_default}/>
           <div className='flex gap-4 items-center justify-center'>
             <div>#{pokemonData.id}</div>
             <div className='capitalize'>{pokemonData.name}</div>
@@ -48,7 +43,7 @@ useEffect(() => {
           <div className='flex gap-4 items-center justify-center'>
             {
               pokemonData.types.map(e => 
-                <span key={e.slot} className={`${colorByType[e.type.name]} `}>{e.type.name}</span>)
+                <span key={e.slot} className={`${colorByType[e.type.name]} rounded-2xl`}>{e.type.name}</span>)
             }
           </div>
           <div className='grid place-items-center'>
@@ -63,8 +58,7 @@ useEffect(() => {
             <p className='uppercase'>{pokemonData.stats[4].stat.name} {pokemonData.stats[4].base_stat}</p>
             <p className='uppercase'>{pokemonData.stats[5].stat.name} {pokemonData.stats[5].base_stat}</p>
           </div>
-      </div>
-      <button onClick={handleClickGridPokemon}>Back to grid</button>
+      <button className="bg-green-500 rounded-2xl" onClick={handleClickGridPokemon}>Back to grid</button>
     </div>
     )
     }

@@ -46,7 +46,6 @@ export const PokemonGrid = ( props ) => {
 
     useEffect(() => {
         fetchData(pokemonsToRender)
-        console.log('useEffect from PokemonGrid 2')
     }, [pagination, props.pokemonList]);
 
 
