@@ -20,7 +20,7 @@ export const Pokedex = () => {
   };
 
   useEffect(() => {
-    fetchData(1)
+    fetchData(selectedPokemon)
   }, []);
 
 
@@ -31,23 +31,31 @@ export const Pokedex = () => {
   return (
     <>{
       isLoading ? <Loading/> : (
-    <div className="min-h-screen bg-pokemonTypeColor-grass grid grid-rows-[1fr,2fr,6fr]">
-      <section className="truncate flex mx-2 justify-between">
-        <img src="./assets/icons/back.svg" className="self-center"/>
+    <div className="h-screen w-full bg-pokemonTypeColor-grass grid grid-rows-[1fr,2fr,5fr]">
+      <section className="truncate mx-2 flex justify-between">
+        <img onClick={ handleClickGridPokemon } src="./assets/icons/back.svg" className="self-center"/>
         <span className="truncate font-poppins font-bold text-2xl text-pokedex-white self-center capitalize">{pokemonData.name}</span>
         <span className="font-poppins font-bold text-xs text-pokedex-white self-center">#{pokemonData.id}</span>
       </section>
-      <section className="relative grid">
-        <img className="w-2/3 r self-center" src={pokemonData.sprites.other.home.front_default}/>
+      <section className="h-full w-full grid place-items-center">
+        <img className="h-full w-1/2 translate-y-10" src={pokemonData.sprites.other.home.front_default}/>
       </section>
-      <section className="h-full">
-        <div className="bg-pokedex-white h-full rounded-xl mx-2">
-          <p className='uppercase'>{pokemonData.stats[0].stat.name} {pokemonData.stats[0].base_stat}</p>
-          <p className='uppercase'>{pokemonData.stats[1].stat.name} {pokemonData.stats[1].base_stat}</p>
-          <p className='uppercase'>{pokemonData.stats[2].stat.name} {pokemonData.stats[2].base_stat}</p>
-          <p className='uppercase'>{pokemonData.stats[3].stat.name} {pokemonData.stats[3].base_stat}</p>
-          <p className='uppercase'>{pokemonData.stats[4].stat.name} {pokemonData.stats[4].base_stat}</p>
-          <p className='uppercase'>{pokemonData.stats[5].stat.name} {pokemonData.stats[5].base_stat}</p>
+      <section className="">
+        <div className="bg-pokedex-white h-full rounded-xl mx-2 grid grid-rows-2 place-items-center">
+          <div className="">
+            {
+              pokemonData.types.map(e => 
+                <img key={e.slot} className='drop-shadow-xl' src={`./assets/types/${e.type.name}.svg`}/>)
+            }
+          </div>
+          <div>
+            <p className='text-pokemonTypeColor-grass'>HP {pokemonData.stats[0].base_stat}</p>
+            <p className='text-pokemonTypeColor-grass'>ATK {pokemonData.stats[1].base_stat}</p>
+            <p className='text-pokemonTypeColor-grass'>DEF {pokemonData.stats[2].base_stat}</p>
+            <p className='text-pokemonTypeColor-grass'>SATK {pokemonData.stats[3].base_stat}</p>
+            <p className='text-pokemonTypeColor-grass'>SDEF {pokemonData.stats[4].base_stat}</p>
+            <p className='text-pokemonTypeColor-grass'>SPD {pokemonData.stats[5].base_stat}</p>
+          </div>
         </div>
       </section>
     </div>
