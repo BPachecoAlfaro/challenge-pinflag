@@ -38,7 +38,7 @@ export const Pokedex = () => {
         <span className="font-poppins font-bold text-xs text-pokedex-white self-center">#{pokemonData.id}</span>
       </section>
       <section className="h-full w-full grid place-items-center">
-        <img className="h-full w-1/2 translate-y-10" src={pokemonData.sprites.other.home.front_default}/>
+        <img className="h-full w-1/2 translate-y-10 drop-shadow-2xl z-20" src={pokemonData.sprites.other.home.front_default}/>
       </section>
       <section className="">
         <div className="bg-pokedex-white h-full rounded-xl mx-2 grid grid-rows-2 place-items-center">
