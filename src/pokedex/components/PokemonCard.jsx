@@ -2,14 +2,14 @@
 import { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { SelectedPokemonContext } from '../context/SelectedPokemonContext'
+import { FavoritesPokemonContext } from '../context/favoritesPokemonContext'
 
 export const PokemonCard = (props) => {
 
+  const { favoritesPokemon, setFavoritesPokemon } = useContext( FavoritesPokemonContext )
   const { setSelectedPokemon } = useContext( SelectedPokemonContext )
-  const [isFavorite, setIsFavorite] = useState(JSON.parse(localStorage.getItem('pokemons')).includes( props.name ))
+  const [ isFavorite, setIsFavorite ] = useState(favoritesPokemon.includes( props.name ))
   const navigate = useNavigate()
-
-  const favorites = JSON.parse(localStorage.getItem('pokemons'))
 
   let types = []
   const getPokemonTypes = (() => {
@@ -24,25 +24,27 @@ export const PokemonCard = (props) => {
   }
 
   const handleClickToggleFavorite = () => {
-    if ( favorites.includes(props.name) ) {
-      let newFavorites = favorites
+
+    if ( favoritesPokemon.includes(props.name) ) {
+      let newFavorites = favoritesPokemon
       let index = newFavorites.indexOf(props.name);
       newFavorites.splice(index, 1)
+      setFavoritesPokemon( newFavorites )
       localStorage.setItem('pokemons', JSON.stringify(newFavorites))
     } else {
-      let newFavorites = favorites
-      newFavorites.push( props.name )
+      setFavoritesPokemon( favoritesPokemon => [...favoritesPokemon, props.name ])
+      let newFavorites = [...favoritesPokemon, props.name]
       localStorage.setItem('pokemons', JSON.stringify(newFavorites))
     }
   }
 
   const clickFavorite = () => {
-    setIsFavorite( !isFavorite )
     handleClickToggleFavorite()
+    setIsFavorite( !isFavorite )
   }
 
   useEffect(() => {
-
+    
   },[isFavorite])
 
 

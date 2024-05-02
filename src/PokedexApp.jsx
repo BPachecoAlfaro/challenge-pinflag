@@ -3,11 +3,14 @@
 import React from 'react'
 import { AppRouter } from './router/AppRouter'
 import { SelectedPokemonProvider } from './pokedex/context/SelectedPokemonProvider'
+import { FavoritesPokemonProvider } from './pokedex/context/favoritesPokemonProvider'
 
 export const PokedexApp = () => {
   return (
     <SelectedPokemonProvider>
-      <AppRouter/>
+      <FavoritesPokemonProvider>
+        <AppRouter/>
+      </FavoritesPokemonProvider>
     </SelectedPokemonProvider>
   )
 }

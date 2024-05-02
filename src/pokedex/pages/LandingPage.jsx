@@ -1,10 +1,12 @@
 
-import React from 'react'
 import { useNavigate } from 'react-router-dom';
+import { FavoritesPokemonContext } from '../context/favoritesPokemonContext';
+import { useContext, useEffect } from 'react';
 
 export const LandingPage = () => {
   const navigate = useNavigate();
   const toPokemongrid = () => navigate("pokemongrid")
+  const { setFavoritesPokemon } = useContext( FavoritesPokemonContext )
 
   const initializeLocalStorage = () => {
     const existingData = localStorage.getItem('pokemons');
@@ -13,7 +15,13 @@ export const LandingPage = () => {
     }
   };
 
-  initializeLocalStorage()
+  useEffect(() => {
+    initializeLocalStorage()
+    setFavoritesPokemon(JSON.parse(localStorage.getItem('pokemons')))
+  }, [])
+  
+
+
 
   return (
     <>

@@ -9,9 +9,9 @@ export const AppRouter = () => {
   return (
     <>
         <Routes>
-            <Route path='/' element={<LandingPage/>}></Route>
-            <Route path='pokemongrid' element={<PokemonGridPage/>}></Route>
-            <Route path='/pokedex' element={<PokedexPage/>}></Route>
+            <Route path='/' element={<LandingPage/>}/>
+            <Route path='pokemongrid' element={<PokemonGridPage/>}/>
+            <Route path='/pokedex' element={<PokedexPage/>}/>
         </Routes>
     </>
   )

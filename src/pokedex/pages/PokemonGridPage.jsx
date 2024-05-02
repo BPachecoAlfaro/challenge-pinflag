@@ -1,57 +1,50 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Loading } from '../components/Loading'
-import { getPokemonList } from '../helpers/getPokemonList'
 import { PokemonGrid } from '../components/pokemonGrid'
+import { pokemons} from '../const/pokemons'
+import { FavoritesPokemonContext } from '../context/favoritesPokemonContext'
 
 
 export const PokemonGridPage = () => {
   
-  const [pokemonList, setPokemonList] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [favoriteIsActive, setFavoriteIsActive] = useState(false)
+  const [ pokemonList, setPokemonList ] = useState(pokemons);
+  const [ favoriteIsActive, setFavoriteIsActive ] = useState(false);
+  const [ searchFilter, setSearchFilter ] = useState('');
 
-  const favorites = JSON.parse(localStorage.getItem('pokemons'))
+  const { favoritesPokemon } = useContext( FavoritesPokemonContext )
+
 
   const handleToggleFavorites = () => {
-    if (favorites.length === 0) return
+    if (favoritesPokemon.length === 0) return
     setFavoriteIsActive(true)
-    setPokemonList(favorites)
+    setPokemonList(favoritesPokemon)
   }
 
-  const handleReset = async() => {
+  const handleReset = () => {
     setFavoriteIsActive(false)
-    fetchData()
+    setPokemonList(pokemons)
   }
-    
-  const fetchData = async () => {
-    setIsLoading(true)
-    try {
-      const pokemonList = await getPokemonList();
-      setPokemonList(pokemonList);
-    } catch (error) {
-        console.error("Error fetching Pokemon data:", error);
-    } finally {
-      setIsLoading(false)
-    }
-  };
+
+  const handleChangeSearch = () => {
+    const value = event.target.value.toLowerCase();
+    setSearchFilter(value);
+  }
 
   useEffect(() => {
-    fetchData()
-  }, []);
+    console.log('useEffect PokemonGridPage')
+  }, [favoritesPokemon])
 
   return (
     <>
     <div className='bg-slate-100 container grid grid-cols-2 items-center gap-2 p-4'>
-      <div className='bg-blue-400 container mx-auto px-4'>Search</div>
+      <input placeholder='Search' onChange={ handleChangeSearch } className='bg-blue-400 container mx-auto px-4'/>
       {
         favoriteIsActive ? 
         (<button onClick={ handleReset } className='bg-blue-500'>Back</button>) :
-        (<button disabled={favorites.length === 0} onClick={ handleToggleFavorites } className='bg-green-500 disabled:bg-white'>Favoritos</button>)
+        (<button onClick={ handleToggleFavorites } className='bg-green-500 disabled:bg-white'>Favoritos</button>)
       }
     </div>
-      {
-        isLoading ? <Loading/> : (<PokemonGrid pokemonList={ pokemonList }/>)
-      }
+    <PokemonGrid pokemonList={ pokemonList } search={ searchFilter }/>
     </>
   )
 }

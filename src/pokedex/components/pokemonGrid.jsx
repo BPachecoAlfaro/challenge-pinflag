@@ -16,7 +16,7 @@ export const PokemonGrid = ( props ) => {
         }
     }
     slicePokemonList(props.pokemonList)
-
+ 
     if ( pagination >= pokemonsToRender.length ) setPagination(0)
 
     const handleNextPagination = () => {
@@ -46,8 +46,7 @@ export const PokemonGrid = ( props ) => {
 
     useEffect(() => {
         fetchData(pokemonsToRender)
-    }, [pagination, props.pokemonList]);
-
+    }, [pagination, props.pokemonList, props.search]);
 
   return (
     <>

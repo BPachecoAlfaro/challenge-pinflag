@@ -4,7 +4,7 @@ import { SelectedPokemonContext } from "./SelectedPokemonContext"
 
 export const SelectedPokemonProvider = ({ children }) => {
 
-    const [ selectedPokemon, setSelectedPokemon ] = useState()
+    const [ selectedPokemon, setSelectedPokemon ] = useState(1)
 
   return (
     <SelectedPokemonContext.Provider value={ { selectedPokemon, setSelectedPokemon } }>
