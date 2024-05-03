@@ -1,14 +1,14 @@
 
 import { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { SelectedPokemonContext } from '../context/SelectedPokemonContext'
 import { FavoritesPokemonContext } from '../context/favoritesPokemonContext'
 
 export const PokemonCard = (props) => {
 
-  const { favoritesPokemon, setFavoritesPokemon } = useContext( FavoritesPokemonContext )
-  const { setSelectedPokemon } = useContext( SelectedPokemonContext )
-  const [ isFavorite, setIsFavorite ] = useState(favoritesPokemon.includes( props.name ))
+
+  // const [ favoritesPokemon, setFavoritesPokemon ] = useState([])
+  const { favoritesPokemon, addFavoritePokemon, removeFavoritePokemon } = useContext( FavoritesPokemonContext )
+  const [ isFavorite, setIsFavorite ] = useState()
   const navigate = useNavigate()
 
   let types = []
@@ -19,22 +19,35 @@ export const PokemonCard = (props) => {
   })();
 
   const handleClickOnPokemon = () => {
-    setSelectedPokemon( props.id )
-    navigate("/pokedex")
+    navigate(`/pokedex/${props.id}`)
   }
 
   const handleClickToggleFavorite = () => {
 
-    if ( favoritesPokemon.includes(props.name) ) {
-      let newFavorites = favoritesPokemon
-      let index = newFavorites.indexOf(props.name);
-      newFavorites.splice(index, 1)
-      setFavoritesPokemon( newFavorites )
-      localStorage.setItem('pokemons', JSON.stringify(newFavorites))
+    // if ( favoritesPokemon.includes(props.name) ) {
+    //   let newFavorites = favoritesPokemon
+    //   let index = newFavorites.indexOf(props.name);
+    //   newFavorites.splice(index, 1)
+    //   setFavoritesPokemon( newFavorites )
+    //   localStorage.setItem('pokemons', JSON.stringify(newFavorites))
+    // } else {
+    //   setFavoritesPokemon( favoritesPokemon => [...favoritesPokemon, props.name ])
+    //   let newFavorites = [...favoritesPokemon, props.name]
+    //   localStorage.setItem('pokemons', JSON.stringify(newFavorites))
+    // }
+    if ( !favoritesPokemon.includes(props.name)) {
+      addFavoritePokemon(props.name)
     } else {
-      setFavoritesPokemon( favoritesPokemon => [...favoritesPokemon, props.name ])
-      let newFavorites = [...favoritesPokemon, props.name]
-      localStorage.setItem('pokemons', JSON.stringify(newFavorites))
+      removeFavoritePokemon(props.name)
+    }
+
+  }
+
+  const checkFavorite = () => {
+    if (favoritesPokemon.includes(props.name)) {
+      setIsFavorite( true )
+    } else {
+      setIsFavorite( false )
     }
   }
 
@@ -43,8 +56,10 @@ export const PokemonCard = (props) => {
     setIsFavorite( !isFavorite )
   }
 
+
+
   useEffect(() => {
-    
+    checkFavorite()
   },[isFavorite])
 
 

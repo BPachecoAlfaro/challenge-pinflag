@@ -8,6 +8,8 @@ export const PokemonGrid = ( props ) => {
     const [pokemonData, setPokemonData] = useState([]);
     const [isLoading, setLoading] = useState(true)
     const [pagination, setPagination] = useState(0)
+    
+
     let pokemonsToRender = [];
     
     const slicePokemonList = (array) => {
@@ -53,7 +55,7 @@ export const PokemonGrid = ( props ) => {
         <div className='bg-slate-100 container mx-auto px-4 grid grid-cols-3 gap-4'>
             {
                 isLoading ? <Loading/> : (pokemonData.map(pokemon => (
-                    <PokemonCard 
+                    <PokemonCard
                       key={pokemon.id}
                       id={pokemon.id}
                       name={pokemon.name}

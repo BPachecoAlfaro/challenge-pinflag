@@ -1,26 +1,24 @@
-import { SelectedPokemonContext } from "../context/SelectedPokemonContext";
+
 import { getPokemonData } from "../helpers/getPokemonData";
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
 import { Loading } from './Loading'
 
 
-export const Pokedex = () => {
+export const Pokedex = (props) => {
 
-  const { selectedPokemon } = useContext( SelectedPokemonContext )
   const navigate = useNavigate()
-
   const [pokemonData, setPokemonData] = useState([]);
   const [isLoading, setLoading] = useState(true)
 
   const fetchData = async (id) => {
-      const data = await getPokemonData(id);
-      setPokemonData(data);
-      setLoading(false)
+    const data = await getPokemonData(id);
+    setPokemonData(data);
+    setLoading(false);
   };
 
   useEffect(() => {
-    fetchData(selectedPokemon)
+    fetchData(props.id)
   }, []);
 
 
@@ -34,19 +32,17 @@ export const Pokedex = () => {
       isLoading ? <Loading/> : (
     <div className="bg-pokemonTypeColor-grass grid md:grid-rows-[1fr,2fr,5fr]">
       <section className="truncate mx-2 flex justify-between">
-        <img onClick={ handleClickGridPokemon } src="./assets/icons/back.svg" className="self-center"/>
+        <img onClick={ handleClickGridPokemon } src="../assets/icons/back.svg" className="self-center"/>
         <span className="truncate font-poppins font-bold text-2xl text-pokedex-white self-center capitalize">{pokemonData.name}</span>
         <span className="font-poppins font-bold text-xs text-pokedex-white self-center">#{pokemonData.id}</span>
       </section>
-      <section className="h-full w-full grid place-items-center">
-        <img className="h-full w-1/2 drop-shadow-2xl" src={pokemonData.sprites.other.home.front_default}/>
-      </section>
+      <img className="h-full w-full drop-shadow-2xl" src={pokemonData.sprites.other.home.front_default}/>
       <section className="h-full">
         <div className="bg-pokedex-white h-full rounded-xl mx-2 grid grid-rows-2 place-items-center">
           <div className="">
             {
               pokemonData.types.map(e => 
-                <img key={e.slot} className='drop-shadow-xl' src={`./assets/types/${e.type.name}.svg`}/>)
+                <img key={e.slot} className='drop-shadow-xl' src={`../assets/types/${e.type.name}.svg`}/>)
             }
           </div>
           <div>

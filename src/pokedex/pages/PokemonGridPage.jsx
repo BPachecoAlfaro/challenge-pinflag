@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from 'react'
-import { Loading } from '../components/Loading'
 import { PokemonGrid } from '../components/pokemonGrid'
 import { pokemons} from '../const/pokemons'
 import { FavoritesPokemonContext } from '../context/favoritesPokemonContext'
@@ -10,7 +9,6 @@ export const PokemonGridPage = () => {
   const [ pokemonList, setPokemonList ] = useState(pokemons);
   const [ favoriteIsActive, setFavoriteIsActive ] = useState(false);
   const [ searchFilter, setSearchFilter ] = useState('');
-
   const { favoritesPokemon } = useContext( FavoritesPokemonContext )
 
 
@@ -31,7 +29,7 @@ export const PokemonGridPage = () => {
   }
 
   useEffect(() => {
-    console.log('useEffect PokemonGridPage')
+
   }, [favoritesPokemon])
 
   return (
@@ -44,7 +42,7 @@ export const PokemonGridPage = () => {
         (<button onClick={ handleToggleFavorites } className='bg-green-500 disabled:bg-white'>Favoritos</button>)
       }
     </div>
-    <PokemonGrid pokemonList={ pokemonList } search={ searchFilter }/>
+    <PokemonGrid pokemonList={ pokemonList } search={ searchFilter } />
     </>
   )
 }
