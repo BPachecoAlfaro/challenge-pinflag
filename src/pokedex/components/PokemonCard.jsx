@@ -17,11 +17,12 @@ export const PokemonCard = (props) => {
   })();
 
   const handleClickOnPokemon = () => {
+    if ( props.id === 0 ) return
     navigate(`/pokedex/${props.id}`)
   }
 
   const handleClickToggleFavorite = () => {
-
+    if ( props.id === 0 ) return
     if ( !favoritesPokemon.includes(props.name)) {
       addFavoritePokemon(props.name)
     } else {

@@ -8,16 +8,22 @@ export const PokemonGrid = ( props ) => {
     const [pokemonData, setPokemonData] = useState([]);
     const [isLoading, setLoading] = useState(true)
     const [pagination, setPagination] = useState(0)
-    
+
 
     let pokemonsToRender = [];
-    
     const slicePokemonList = (array) => {
+        if (array.length === 0) return pokemonsToRender.push([])
         for (let i = 0; i < array.length; i += 30) {
             pokemonsToRender.push(array.slice(i, i + 30));
         }
     }
-    slicePokemonList(props.pokemonList)
+
+    if (props.search.length >= 1) {
+        const filtered = props.pokemonList.filter(n => n.includes(props.search));
+        slicePokemonList(filtered)
+    } else {
+        slicePokemonList(props.pokemonList)
+    }
  
     if ( pagination >= pokemonsToRender.length ) setPagination(0)
 
@@ -38,7 +44,29 @@ export const PokemonGrid = ( props ) => {
               const data = await getPokemonData(e);
               return data;
         }));
-            setPokemonData(dataArray);
+            // setPokemonData(dataArray);
+            if (dataArray.length === 0) {
+                setPokemonData(
+                    [{
+                    id: 0,
+                    name: "No results",
+                    sprites: {
+                        other: {
+                            home: {
+                                front_default: "./assets/noResults.png"
+                            }
+                        }
+                    },
+                    types: [{
+                        type: {
+                            name: "grass",
+                        }
+                    }]
+                    }]
+                )
+            } else {
+                setPokemonData(dataArray);
+            }
         } catch (error) {
             console.error("Error fetching Pokemon data:", error);
         } finally {
