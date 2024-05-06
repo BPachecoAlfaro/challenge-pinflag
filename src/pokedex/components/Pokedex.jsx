@@ -21,7 +21,6 @@ export const Pokedex = (props) => {
     fetchData(props.id)
   }, []);
 
-
   const handleClickGridPokemon = () => {
     navigate("/pokemongrid")
   }
@@ -30,7 +29,7 @@ export const Pokedex = (props) => {
     <>
     {
       isLoading ? <Loading/> : (
-    <div className="bg-pokemonTypeColor-grass grid md:grid-rows-[1fr,2fr,5fr]">
+    <div className={`bg-pokemonTypeColor-normal grid md:grid-rows-[1fr,2fr,5fr]`}>{pokemonData.types[0].type.name}
       <section className="truncate mx-2 flex justify-between">
         <img onClick={ handleClickGridPokemon } src="../assets/icons/back.svg" className="self-center"/>
         <span className="truncate font-poppins font-bold text-2xl text-pokedex-white self-center capitalize">{pokemonData.name}</span>
@@ -46,7 +45,7 @@ export const Pokedex = (props) => {
             }
           </div>
           <div>
-            <p className='text-pokemonTypeColor-grass'>HP {pokemonData.stats[0].base_stat}</p>
+            <p className={`text-pokemonTypeColor-${pokemonData.types[0].type.name}`}>HP {pokemonData.stats[0].base_stat}</p>
             <p className='text-pokemonTypeColor-grass'>ATK {pokemonData.stats[1].base_stat}</p>
             <p className='text-pokemonTypeColor-grass'>DEF {pokemonData.stats[2].base_stat}</p>
             <p className='text-pokemonTypeColor-grass'>SATK {pokemonData.stats[3].base_stat}</p>

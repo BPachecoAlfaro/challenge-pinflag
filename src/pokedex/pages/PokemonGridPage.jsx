@@ -34,7 +34,7 @@ export const PokemonGridPage = () => {
 
   return (
     <>
-    <div className='bg-slate-100 container grid grid-cols-2 items-center gap-2 p-4'>
+    <div className='bg-slate-100 container grid grid-cols-2 items-center gap-2 p-4 sticky top-0 z-50 rounded-xl'>
       <input placeholder='Search' onChange={ handleChangeSearch } className='bg-blue-400 container mx-auto px-4'/>
       {
         favoriteIsActive ? 

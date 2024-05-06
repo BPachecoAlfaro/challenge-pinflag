@@ -65,7 +65,7 @@ export const PokemonGrid = ( props ) => {
                   )))
             }
         </div>
-        <div className='bg-slate-100 grid grid-cols-3 items-center gap-2 p-4'>
+        <div className='bg-slate-100 grid grid-cols-3 items-center gap-2 p-4 sticky bottom-0 z-50 rounded-xl'>
             <button disabled={ pagination === 0 } onClick={handlePrevPagination} className='bg-green-500 hover:bg-green-700 disabled:bg-gray-500 px-4 py-2 rounded-2xl'>prev page</button>
             <p className='text-center'>{ `${pagination +1} / ${pokemonsToRender.length }` }</p>
             <button disabled={ pagination === pokemonsToRender.length -1 } onClick={handleNextPagination} className='bg-green-500 hover:bg-green-700 disabled:bg-gray-500 px-4 py-2 rounded-2xl'>next page</button>
